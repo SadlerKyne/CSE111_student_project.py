@@ -1,0 +1,64 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+
+    Smart Offroad & Outdoors Trip Planner
+
+2. What real-world problem will your program address or help to solve?
+
+    This program will help off-road enthusiasts, hikers, and other adventurers to stay prepared outdoors. This will aid in suggesting supplies and managing the users checklists. It will gather weather location data using the users IP address taking this information and suggesting appropriate supplies.
+
+3. What will you learn from developing this program?
+
+    How to use IP addresses to determine location and how to take that information to gather weather forcasts and suggest appropriate supplies. 
+    I will learn how to use a variety of tests.
+
+4. What Python modules will your program use?
+
+    requests
+    json
+    datetime
+    pytest
+    built-in
+
+5. List the names of functions you will need?
+
+  (Functions performing core logic or reusable tasks)
+* get_public_ip(): Fetches the public IP address from an external service. (Returns IP string or None).
+* get_location_from_ip(ip_address): Queries a geolocation API using the IP address to get approximate location details like city, region, latitude, longitude. (Returns location dictionary or None).
+* get_weather(latitude, longitude, api_key): Fetches current weather data from OpenWeatherMap API using coordinates. (Returns weather data dictionary or None).
+* suggest_checklist_items(trip_type, weather_data): Uses if/elif logic based on trip type and weather data (temp, condition) to return a list of suggested item names. (Reusable, testable).
+* add_item(checklist, item_name, quantity=1, notes=""): Adds or updates an item in the checklist dictionary. (Returns updated checklist). (Reusable, testable).
+* remove_item(checklist, item_name): Removes an item from the checklist dictionary. (Returns updated checklist). (Reusable, testable).
+* update_quantity(checklist, item_name, new_quantity): Updates the quantity of an item. (Returns updated checklist). (Reusable, testable).
+* toggle_item_checked(checklist, item_name): Toggles the checked status of an item. (Returns updated checklist). (Reusable, testable).
+* load_checklist_from_file(filename): Reads checklist data from a file. (Returns checklist dictionary). (Reusable, testable).
+* save_checklist_to_file(checklist, filename): Writes checklist data to a file. (Reusable, testable).
+
+(Functions handling I/O or main program flow)
+* display_checklist_formatted(checklist): Prints the checklist to the console in a user-friendly format.
+* prompt_user_for_trip_type(): Asks the user to input the type of trip.
+* prompt_user_for_filename(): Asks the user for a filename for saving/loading.
+* display_main_menu(): Shows the main menu options to the user.
+* run_trip_planner(): The main function orchestrating the application flow: gets context (IP/location/weather), presents menus, gets user input, calls other functions, manages the main loop.
+
+
+6. List the names of the test functions you will write.
+
+    Using pytest, I plan to write test functions for the core, reusable logic:
+* test_suggest_checklist_items(): Verify that correct item suggestions are returned for various combinations of trip_type and mocked weather_data (e.g., test cases for hot weather, cold weather, rain, different trip types like 'Hiking', 'Jeep').
+* test_add_item(): Verify items are added correctly, including handling adding existing items (e.g., should it update quantity or ignore?).
+* test_remove_item(): Verify items are removed correctly.
+* test_update_quantity(): Verify item quantities are updated.
+* test_toggle_item_checked(): Verify the checked status changes correctly.
+* test_save_load_checklist(): Verify that a checklist saved to a file can be loaded back accurately (potentially using temporary files in tests).
+* test_api_functions_called: Use mocking (unittest.mock) to assert that functions like get_public_ip, get_location_from_ip, and get_weather are *called* during the setup phase in run_trip_planner, without actually making network requests during the test.
